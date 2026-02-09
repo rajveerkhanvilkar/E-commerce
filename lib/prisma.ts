@@ -1,36 +1,14 @@
-// Temporary mock Prisma client until we fix the generation issue
-export const prisma = {
-  user: {
-    findUnique: async () => null,
-    findMany: async () => [],
-    create: async () => null,
-    update: async () => null,
-  },
-  product: {
-    findUnique: async () => null,
-    findMany: async () => [],
-    create: async () => null,
-    update: async () => null,
-    delete: async () => null,
-    count: async () => 0,
-  },
-  category: {
-    findUnique: async () => null,
-    findMany: async () => [],
-  },
-  cartItem: {
-    findUnique: async () => null,
-    findMany: async () => [],
-    create: async () => null,
-    update: async () => null,
-    delete: async () => null,
-    deleteMany: async () => null,
-  },
-  order: {
-    findUnique: async () => null,
-    findMany: async () => [],
-    create: async () => null,
-    update: async () => null,
-  },
-  $disconnect: async () => { },
+import { PrismaClient } from '@prisma/client'
+
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined
 }
+
+export const prisma = globalForPrisma.prisma ?? new PrismaClient({
+  adapter: {
+    provider: 'postgresql',
+    url: process.env.DATABASE_URL!,
+  },
+})
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
