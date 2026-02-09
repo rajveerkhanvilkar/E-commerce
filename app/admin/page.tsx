@@ -175,8 +175,8 @@ export default function AdminDashboard() {
                                             <td className="py-4">${product.price}</td>
                                             <td className="py-4">
                                                 <span className={`px-2 py-1 rounded-full text-xs ${product.stock > 10
-                                                        ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-                                                        : 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400'
+                                                    ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
+                                                    : 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400'
                                                     }`}>
                                                     {product.stock} units
                                                 </span>
@@ -210,7 +210,12 @@ export default function AdminDashboard() {
     );
 }
 
-function StatCard({ icon, title, value, color }: any) {
+function StatCard({ icon, title, value, color }: {
+    icon: React.ReactNode;
+    title: string;
+    value: string | number;
+    color: 'blue' | 'green' | 'purple' | 'orange';
+}) {
     const colorClasses = {
         blue: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
         green: 'bg-green-500/10 text-green-600 dark:text-green-400',
